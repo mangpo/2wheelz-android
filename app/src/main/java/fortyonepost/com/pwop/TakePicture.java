@@ -99,7 +99,7 @@ public class TakePicture extends Activity implements SurfaceHolder.Callback
                 });
             }
         };
-        timer.schedule(doAsynchronousTask,0,3000);
+        timer.schedule(doAsynchronousTask,0,5000);
     }
 
 	@Override
@@ -413,7 +413,11 @@ public class TakePicture extends Activity implements SurfaceHolder.Callback
             }
         };
 
-        mCamera.takePicture(null, null, mCall);
+        try {
+            mCamera.takePicture(null, null, mCall);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     ////////////////////// AsyncTask ///////////////////////
@@ -467,6 +471,7 @@ public class TakePicture extends Activity implements SurfaceHolder.Callback
         protected void onPostExecute(String result) {
             if(result.equals("1")) {
                 if(!snapping) {
+                    id = 0;
                     Calendar calendar = Calendar.getInstance();
                     start_time = System.currentTimeMillis();
                     Log.d("start_time",Long.toString(start_time));
@@ -475,7 +480,7 @@ public class TakePicture extends Activity implements SurfaceHolder.Callback
                     Calendar calendar = Calendar.getInstance();
                     long time = System.currentTimeMillis();
                     Log.d("time",Long.toString(time-start_time));
-                    if(time-start_time > 30000) {
+                    if(time-start_time > 40000) {
                         new SnapOffTask().execute();
                         snapping = false;
                         return;
