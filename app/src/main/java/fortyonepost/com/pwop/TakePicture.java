@@ -99,7 +99,7 @@ public class TakePicture extends Activity implements SurfaceHolder.Callback
                 });
             }
         };
-        timer.schedule(doAsynchronousTask,0,5000);
+        timer.schedule(doAsynchronousTask,0,4000);
     }
 
 	@Override
@@ -480,7 +480,7 @@ public class TakePicture extends Activity implements SurfaceHolder.Callback
                     Calendar calendar = Calendar.getInstance();
                     long time = System.currentTimeMillis();
                     Log.d("time",Long.toString(time-start_time));
-                    if(time-start_time > 40000) {
+                    if(time-start_time > 30000) {
                         new SnapOffTask().execute();
                         snapping = false;
                         return;
